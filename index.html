@@ -14,124 +14,40 @@
             --text-muted: #A1A1AA;
             --accent: #2C2E33;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Премиальная Шапка */
+        body { background-color: var(--dark-bg); color: var(--text-main); line-height: 1.6; }
         header {
-            background: rgba(15, 16, 18, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 15px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background: rgba(15, 16, 18, 0.95); backdrop-filter: blur(10px);
+            padding: 20px 15px; position: fixed; width: 100%; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
         .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
         .logo span { color: var(--gold); }
-
         nav { display: flex; gap: 10px; }
         nav button {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
-            transition: 0.3s;
-            text-transform: uppercase;
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;
+            font-weight: 600; transition: 0.3s;
         }
         nav button.active { background: var(--gold); color: #000; }
-
-        /* Контентные секции */
         .container { max-width: 1200px; margin: 100px auto 40px; padding: 0 15px; }
-        .page { display: none; animation: fadeIn 0.5s ease; }
-        .page.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Поиск */
-        .search-wrapper { margin-bottom: 30px; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .search-wrapper input {
-            width: 100%;
-            padding: 15px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 15px; background: var(--card-bg);
+            border: 1px solid var(--accent); border-radius: 12px; color: white; margin-bottom: 30px;
         }
-        .search-wrapper input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
-
-        /* Сетка объектов */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
-
+        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
         .card-img { width: 100%; height: 200px; background-size: cover; background-position: center; position: relative; }
-        .card-badge { position: absolute; top: 15px; left: 15px; background: var(--gold); color: black; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
-
         .card-content { padding: 20px; }
-        .card-price { font-size: 1.4rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .card-title { font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: var(--text-main); }
-        .card-loc { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
-
-        /* Форма добавления */
-        .form-container { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--accent); }
-        .form-container h2 { margin-bottom: 20px; color: var(--gold); text-align: center; }
-        
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: var(--dark-bg);
-            border: 1px solid var(--accent);
-            border-radius: 8px;
-            color: white;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: var(--gold);
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .btn-submit:hover { background: #b8962d; transform: scale(1.02); }
-
-        /* Адаптив для iPhone SE */
-        @media (max-width: 380px) {
-            .logo { font-size: 1rem; }
-            nav button { padding: 6px 8px; font-size: 0.6rem; }
-            .card-price { font-size: 1.2rem; }
-        }
+        .card-price { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+        .card-title { font-size: 1rem; margin: 10px 0; }
+        .form-container { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 20px; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark-bg); border: 1px solid var(--accent); color: white; border-radius: 8px; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--gold); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -145,130 +61,123 @@
 </header>
 
 <div class="container">
-    <!-- СТРАНИЦА КАТАЛОГА И ПОИСКА -->
     <section id="page-catalog" class="page active">
         <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="Поиск по району или названию..." oninput="filterData()">
+            <input type="text" id="searchInput" placeholder="Поиск по району..." oninput="filterData()">
         </div>
-        <div class="grid" id="main-grid">
-            <!-- Загрузка данных из PHP -->
-        </div>
+        <div class="grid" id="main-grid"></div>
     </section>
 
-    <!-- СТРАНИЦА ДОБАВЛЕНИЯ -->
     <section id="page-add" class="page">
         <div class="form-container">
-            <h2>Новый объект</h2>
+            <h2 style="color:var(--gold); margin-bottom:20px; text-align:center;">Новый объект</h2>
             <form id="addForm">
-                <input type="text" id="title" placeholder="Название (например: 3-к квартира)" required>
-                <input type="number" id="price" placeholder="Цена в USD ($)" required>
+                <input type="text" id="title" placeholder="Название объекта" required>
+                <input type="number" id="price" placeholder="Цена ($)" required>
                 <input type="text" id="address" placeholder="Район / Адрес" required>
-                <input type="text" id="img" placeholder="Прямая ссылка на фото (URL)" required>
+                <input type="text" id="img" placeholder="Ссылка на фото (URL)" required>
                 <select id="type">
                     <option value="Квартира">Квартира</option>
                     <option value="Дом">Дом</option>
-                    <option value="Участок">Участок</option>
                 </select>
-                <button type="submit" class="btn-submit">Зарегистрировать объект</button>
+                <button type="submit" class="btn-submit">Сохранить в базу</button>
             </form>
         </div>
     </section>
 </div>
 
 <script>
+    const PROJECT_ID = "argen-59e33";
+    const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/realty`;
     let allObjects = [];
 
-    // 1. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ (SPA)
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        
         document.getElementById('page-' + pageId).classList.add('active');
         document.getElementById('btn-' + pageId).classList.add('active');
-        
         if(pageId === 'catalog') loadData();
     }
 
-    // 2. ЗАГРУЗКА ДАННЫХ ЧЕРЕЗ PHP API
     async function loadData() {
         const grid = document.getElementById('main-grid');
-        grid.innerHTML = '<p style="text-align:center; width:100%;">Синхронизация с базой Firebase...</p>';
-        
+        grid.innerHTML = '<p style="text-align:center; width:100%;">Загрузка из облака...</p>';
         try {
-            const res = await fetch('api.php');
-            allObjects = await res.json();
+            const res = await fetch(BASE_URL);
+            const data = await res.json();
+            allObjects = (data.documents || []).map(doc => {
+                const f = doc.fields;
+                return {
+                    id: doc.name.split('/').pop(),
+                    title: f.title?.stringValue || 'Без названия',
+                    price: f.price?.integerValue || f.price?.stringValue || 0,
+                    address: f.address?.stringValue || '',
+                    img: f.img?.stringValue || '',
+                    type: f.type?.stringValue || 'Объект'
+                };
+            });
             renderGrid(allObjects);
         } catch (err) {
-            grid.innerHTML = '<p style="color:red">Ошибка бэкенда. Запустите через OpenServer.</p>';
+            grid.innerHTML = '<p style="color:red">Ошибка связи с базой.</p>';
         }
     }
 
-    // 3. ОТРИСОВКА КАРТОЧЕК
     function renderGrid(data) {
         const grid = document.getElementById('main-grid');
         grid.innerHTML = data.map(item => `
             <div class="card">
-                <div class="card-img" style="background-image: url('${item.img}')">
-                    <div class="card-badge">${item.type}</div>
-                </div>
+                <div class="card-img" style="background-image: url('${item.img}')"></div>
                 <div class="card-content">
                     <div class="card-price">$${Number(item.price).toLocaleString()}</div>
                     <div class="card-title">${item.title}</div>
-                    <div class="card-loc">📍 ${item.address}</div>
+                    <div style="color:var(--text-muted); font-size:0.8rem">📍 ${item.address}</div>
                 </div>
             </div>
         `).join('');
     }
 
-    // 4. ФИЛЬТРАЦИЯ (ПОИСК)
     function filterData() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = allObjects.filter(obj => 
-            obj.title.toLowerCase().includes(query) || 
-            obj.address.toLowerCase().includes(query)
-        );
-        renderGrid(filtered);
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        renderGrid(allObjects.filter(o => o.title.toLowerCase().includes(q) || o.address.toLowerCase().includes(q)));
     }
 
-    // 5. ОТПРАВКА ДАННЫХ В PHP
     document.getElementById('addForm').onsubmit = async (e) => {
         e.preventDefault();
         const btn = e.target.querySelector('button');
-        btn.disabled = true;
-        btn.innerText = 'Обработка PHP...';
+        btn.innerText = 'Сохранение...';
 
         const payload = {
-            title: document.getElementById('title').value,
-            price: document.getElementById('price').value,
-            address: document.getElementById('address').value,
-            img: document.getElementById('img').value,
-            type: document.getElementById('type').value
+            fields: {
+                title: { stringValue: document.getElementById('title').value },
+                price: { integerValue: parseInt(document.getElementById('price').value) },
+                address: { stringValue: document.getElementById('address').value },
+                img: { stringValue: document.getElementById('img').value },
+                type: { stringValue: document.getElementById('type').value }
+            }
         };
 
         try {
-            const res = await fetch('api.php', {
+            const res = await fetch(BASE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
-            const result = await res.json();
-            
-            if(result.status === 'success') {
-                alert('Объект успешно добавлен в Firebase!');
+            if (res.ok) {
+                alert('Готово! Объект в базе.');
                 e.target.reset();
                 showPage('catalog');
+            } else {
+                const err = await res.json();
+                alert('Ошибка базы: ' + (err.error.message || 'Проверьте Rules в Firebase'));
             }
         } catch (err) {
-            alert('Ошибка при сохранении!');
+            alert('Сетевая ошибка!');
         } finally {
-            btn.disabled = false;
-            btn.innerText = 'Зарегистрировать объект';
+            btn.innerText = 'Сохранить в базу';
         }
     };
 
-    // Начальная загрузка
     loadData();
 </script>
-
 </body>
 </html>
