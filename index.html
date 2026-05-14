@@ -161,6 +161,7 @@
                     ${withControls ? `
                         <div class="admin-controls">
                             <button class="btn-del" onclick="deleteObject('${item.id}')">Удалить</button>
+                             <button class="btn-edit" onclick="prepareEdit('${item.id}')" style="background:#3498db; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; margin-right:5px;">Изменить</button>
                         </div>
                     ` : ''}
                 </div>
