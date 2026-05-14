@@ -4,180 +4,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Алтын Ачкыч | Агентство Недвижимости</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #D4AF37;
-            --dark-bg: #0F1012;
-            --card-bg: #1E1F23;
-            --text-main: #FFFFFF;
-            --text-muted: #A1A1AA;
-            --accent: #2C2E33;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--dark-bg); color: var(--text-main); line-height: 1.6; }
-        header {
-            background: rgba(15, 16, 18, 0.95); backdrop-filter: blur(10px);
-            padding: 20px 15px; position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
-        .logo span { color: var(--gold); }
-        nav { display: flex; gap: 10px; }
-        nav button {
-            background: transparent; border: 1px solid var(--gold); color: var(--gold);
-            padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;
-            font-weight: 600; transition: 0.3s;
-        }
-        nav button.active { background: var(--gold); color: #000; }
-        .container { max-width: 1200px; margin: 100px auto 40px; padding: 0 15px; }
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .search-wrapper input {
-            width: 100%; padding: 15px; background: var(--card-bg);
-            border: 1px solid var(--accent); border-radius: 12px; color: white; margin-bottom: 30px;
-        }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .card-img { width: 100%; height: 200px; background-size: cover; background-position: center; position: relative; }
-        .card-content { padding: 20px; }
-        .card-price { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
-        .card-title { font-size: 1rem; margin: 10px 0; }
-        .form-container { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 20px; }
-        input, select { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark-bg); border: 1px solid var(--accent); color: white; border-radius: 8px; }
-        .btn-submit { width: 100%; padding: 15px; background: var(--gold); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <div class="logo">Алтын <span>Ачкыч</span></div>
-    <nav>
-        <button onclick="showPage('catalog')" id="btn-catalog" class="active">Каталог</button>
-        <button onclick="showPage('add')" id="btn-add">Добавить</button>
+    <div class="logo" onclick="showSection('hero')">АЛТЫН <span>АЧКЫЧ</span></div>
+    <nav id="main-nav">
+        <button class="nav-btn" onclick="showSection('search')">Поиск</button>
+        <button class="nav-btn" id="admin-nav-link" onclick="showSection('login')">Админ</button>
     </nav>
 </header>
 
-<div class="container">
-    <section id="page-catalog" class="page active">
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="Поиск по району..." oninput="filterData()">
+<main class="container">
+    
+    <!-- СЕКЦИЯ 1: ЛЕНДИНГ (HERO) -->
+    <section id="hero" class="section active">
+        <div style="text-align: center; padding: 40px 0;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Найдите дом мечты</h1>
+            <p style="color: var(--gold); letter-spacing: 1px;">ЭКСКЛЮЗИВНАЯ НЕДВИЖИМОСТЬ КЫРГЫЗСТАНА</p>
+            <br><br>
+            <div class="grid" id="featured-grid">
+                <!-- Сюда грузятся последние объекты -->
+            </div>
         </div>
-        <div class="grid" id="main-grid"></div>
     </section>
 
-    <section id="page-add" class="page">
-        <div class="form-container">
-            <h2 style="color:var(--gold); margin-bottom:20px; text-align:center;">Новый объект</h2>
-            <form id="addForm">
-                <input type="text" id="title" placeholder="Название объекта" required>
-                <input type="number" id="price" placeholder="Цена ($)" required>
-                <input type="text" id="address" placeholder="Район / Адрес" required>
-                <input type="text" id="img" placeholder="Ссылка на фото (URL)" required>
-                <select id="type">
-                    <option value="Квартира">Квартира</option>
-                    <option value="Дом">Дом</option>
-                </select>
-                <button type="submit" class="btn-submit">Сохранить в базу</button>
+    <!-- СЕКЦИЯ 2: ПОИСК -->
+    <section id="search" class="section">
+        <div class="search-wrapper" style="margin-bottom: 30px;">
+            <input type="text" id="globalSearch" placeholder="Поиск по названию, району или цене..." oninput="handleSearch()">
+        </div>
+        <div class="grid" id="search-grid">
+            <!-- Результаты поиска -->
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: ВХОД В АДМИНКУ -->
+    <section id="login" class="section">
+        <div class="glass-panel">
+            <h2 style="text-align:center; margin-bottom:20px; color:var(--gold);">Доступ ограничен</h2>
+            <input type="password" id="adminPass" placeholder="Введите пароль администратора">
+            <button class="btn-gold" onclick="checkAuth()">Войти в систему</button>
+            <p id="loginError" style="color:var(--error); font-size:0.8rem; margin-top:10px; text-align:center; display:none;">Неверный пароль!</p>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: АДМИН-ПАНЕЛЬ (CRUD) -->
+    <section id="admin" class="section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="color:var(--gold)">Панель управления</h2>
+            <button class="nav-btn" style="border-color:var(--error); color:var(--error);" onclick="logout()">Выйти</button>
+        </div>
+
+        <div class="glass-panel" style="max-width: 100%; margin-bottom: 40px;">
+            <h3 style="margin-bottom: 20px;">Добавить новый объект</h3>
+            <form id="addForm" onsubmit="saveObject(event)">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <input type="text" id="f_title" placeholder="Название объекта" required>
+                    <input type="number" id="f_price" placeholder="Цена в USD ($)" required>
+                    <input type="text" id="f_address" placeholder="Район / Адрес" required>
+                    <input type="text" id="f_img" placeholder="Ссылка на фото (Direct URL)" required>
+                    <select id="f_type">
+                        <option value="Квартира">Квартира</option>
+                        <option value="Дом / Коттедж">Дом / Коттедж</option>
+                        <option value="Участок">Участок</option>
+                        <option value="Коммерческая">Коммерческая</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-gold">Опубликовать на сайт</button>
             </form>
         </div>
+
+        <h3 style="margin-bottom: 20px;">Текущие объекты (Редактирование)</h3>
+        <div class="grid" id="admin-grid"></div>
     </section>
-</div>
+
+</main>
 
 <script>
+    // КОНФИГУРАЦИЯ
     const PROJECT_ID = "argen-59e33";
-    const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/realty`;
-    let allObjects = [];
+    const API_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/realty`;
+    const ADMIN_PASS = "admin777"; // Пароль для входа
+    let isAuthorized = false;
+    let allData = [];
 
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        document.getElementById('page-' + pageId).classList.add('active');
-        document.getElementById('btn-' + pageId).classList.add('active');
-        if(pageId === 'catalog') loadData();
+    // НАВИГАЦИЯ
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        // Автоматическая загрузка данных при переходе
+        if(id === 'hero' || id === 'search' || id === 'admin') loadData();
     }
 
-    async function loadData() {
-        const grid = document.getElementById('main-grid');
-        grid.innerHTML = '<p style="text-align:center; width:100%;">Загрузка из облака...</p>';
-        try {
-            const res = await fetch(BASE_URL);
-            const data = await res.json();
-            allObjects = (data.documents || []).map(doc => {
-                const f = doc.fields;
-                return {
-                    id: doc.name.split('/').pop(),
-                    title: f.title?.stringValue || 'Без названия',
-                    price: f.price?.integerValue || f.price?.stringValue || 0,
-                    address: f.address?.stringValue || '',
-                    img: f.img?.stringValue || '',
-                    type: f.type?.stringValue || 'Объект'
-                };
-            });
-            renderGrid(allObjects);
-        } catch (err) {
-            grid.innerHTML = '<p style="color:red">Ошибка связи с базой.</p>';
+    // АВТОРИЗАЦИЯ
+    function checkAuth() {
+        const pass = document.getElementById('adminPass').value;
+        if(pass === ADMIN_PASS) {
+            isAuthorized = true;
+            document.getElementById('loginError').style.display = 'none';
+            showSection('admin');
+            document.getElementById('admin-nav-link').innerText = "Админка";
+        } else {
+            document.getElementById('loginError').style.display = 'block';
         }
     }
 
-    function renderGrid(data) {
-        const grid = document.getElementById('main-grid');
-        grid.innerHTML = data.map(item => `
+    function logout() {
+        isAuthorized = false;
+        document.getElementById('adminPass').value = '';
+        document.getElementById('admin-nav-link').innerText = "Админ";
+        showSection('hero');
+    }
+
+    // ЗАГРУЗКА ДАННЫХ
+    async function loadData() {
+        try {
+            const res = await fetch(API_URL + "?orderBy=price desc");
+            const data = await res.json();
+            allData = (data.documents || []).map(doc => ({
+                id: doc.name.split('/').pop(),
+                title: doc.fields.title?.stringValue || 'Без названия',
+                price: doc.fields.price?.integerValue || doc.fields.price?.stringValue || 0,
+                address: doc.fields.address?.stringValue || '',
+                img: doc.fields.img?.stringValue || '',
+                type: doc.fields.type?.stringValue || 'Объект'
+            }));
+            renderAll();
+        } catch (e) { console.error("Ошибка загрузки:", e); }
+    }
+
+    // ОТРИСОВКА ВСЕХ СЕТОК
+    function renderAll() {
+        renderGrid('featured-grid', allData.slice(0, 3)); // На главной только 3 последних
+        renderGrid('search-grid', allData);
+        renderGrid('admin-grid', allData, true); // В админке с кнопками удаления
+    }
+
+    function renderGrid(containerId, data, withControls = false) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+
+        container.innerHTML = data.map(item => `
             <div class="card">
-                <div class="card-img" style="background-image: url('${item.img}')"></div>
+                <div class="card-img" style="background-image: url('${item.img}')">
+                    <div class="card-badge">${item.type}</div>
+                </div>
                 <div class="card-content">
                     <div class="card-price">$${Number(item.price).toLocaleString()}</div>
                     <div class="card-title">${item.title}</div>
-                    <div style="color:var(--text-muted); font-size:0.8rem">📍 ${item.address}</div>
+                    <div class="card-info">📍 ${item.address}</div>
+                    ${withControls ? `
+                        <div class="admin-controls">
+                            <button class="btn-del" onclick="deleteObject('${item.id}')">Удалить</button>
+                        </div>
+                    ` : ''}
                 </div>
             </div>
         `).join('');
     }
 
-    function filterData() {
-        const q = document.getElementById('searchInput').value.toLowerCase();
-        renderGrid(allObjects.filter(o => o.title.toLowerCase().includes(q) || o.address.toLowerCase().includes(q)));
+    // ПОИСК
+    function handleSearch() {
+        const query = document.getElementById('globalSearch').value.toLowerCase();
+        const filtered = allData.filter(i => 
+            i.title.toLowerCase().includes(query) || 
+            i.address.toLowerCase().includes(query) ||
+            i.price.toString().includes(query)
+        );
+        renderGrid('search-grid', filtered);
     }
 
-    document.getElementById('addForm').onsubmit = async (e) => {
+    // СОХРАНЕНИЕ (CREATE)
+    async function saveObject(e) {
         e.preventDefault();
         const btn = e.target.querySelector('button');
-        btn.innerText = 'Сохранение...';
+        btn.innerText = "Сохранение...";
 
         const payload = {
             fields: {
-                title: { stringValue: document.getElementById('title').value },
-                price: { integerValue: parseInt(document.getElementById('price').value) },
-                address: { stringValue: document.getElementById('address').value },
-                img: { stringValue: document.getElementById('img').value },
-                type: { stringValue: document.getElementById('type').value }
+                title: { stringValue: document.getElementById('f_title').value },
+                price: { integerValue: parseInt(document.getElementById('f_price').value) },
+                address: { stringValue: document.getElementById('f_address').value },
+                img: { stringValue: document.getElementById('f_img').value },
+                type: { stringValue: document.getElementById('f_type').value }
             }
         };
 
-        try {
-            const res = await fetch(BASE_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (res.ok) {
-                alert('Готово! Объект в базе.');
-                e.target.reset();
-                showPage('catalog');
-            } else {
-                const err = await res.json();
-                alert('Ошибка базы: ' + (err.error.message || 'Проверьте Rules в Firebase'));
-            }
-        } catch (err) {
-            alert('Сетевая ошибка!');
-        } finally {
-            btn.innerText = 'Сохранить в базу';
-        }
-    };
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
 
+        e.target.reset();
+        btn.innerText = "Опубликовать на сайт";
+        loadData();
+    }
+
+    // УДАЛЕНИЕ (DELETE)
+    async function deleteObject(id) {
+        if(!confirm("Вы уверены, что хотите удалить этот объект?")) return;
+        
+        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        loadData();
+    }
+
+    // ПЕРВЫЙ ЗАПУСК
     loadData();
 </script>
+
 </body>
 </html>
