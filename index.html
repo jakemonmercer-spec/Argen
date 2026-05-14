@@ -169,6 +169,27 @@
         `).join('');
     }
 
+function prepareEdit(id) {
+    const item = allData.find(i => i.id === id);
+    if (!item) return;
+
+    editingId = id; // Запоминаем, что мы редактируем
+    
+    // Заполняем поля формы данными из базы
+    document.getElementById('f_title').value = item.title;
+    document.getElementById('f_price').value = item.price;
+    document.getElementById('f_address').value = item.address;
+    document.getElementById('f_img').value = item.img;
+    document.getElementById('f_type').value = item.type;
+
+    // Меняем текст кнопки и скроллим к форме
+    const btn = document.querySelector('#addForm button');
+    btn.innerText = "Обновить данные";
+    btn.style.background = "#3498db";
+    
+    document.getElementById('addForm').scrollIntoView({ behavior: 'smooth' });
+}
+    
     // ПОИСК
     function handleSearch() {
         const query = document.getElementById('globalSearch').value.toLowerCase();
@@ -181,31 +202,53 @@
     }
 
     // СОХРАНЕНИЕ (CREATE)
-    async function saveObject(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector('button');
-        btn.innerText = "Сохранение...";
+   async function saveObject(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const oldText = btn.innerText;
+    btn.innerText = "Синхронизация...";
 
-        const payload = {
-            fields: {
-                title: { stringValue: document.getElementById('f_title').value },
-                price: { integerValue: parseInt(document.getElementById('f_price').value) },
-                address: { stringValue: document.getElementById('f_address').value },
-                img: { stringValue: document.getElementById('f_img').value },
-                type: { stringValue: document.getElementById('f_type').value }
-            }
-        };
+    const payload = {
+        fields: {
+            title: { stringValue: document.getElementById('f_title').value },
+            price: { integerValue: parseInt(document.getElementById('f_price').value) },
+            address: { stringValue: document.getElementById('f_address').value },
+            img: { stringValue: document.getElementById('f_img').value },
+            type: { stringValue: document.getElementById('f_type').value }
+        }
+    };
 
-        await fetch(API_URL, {
-            method: 'POST',
+    let url = API_URL;
+    let method = 'POST';
+
+    // ЕСЛИ МЫ РЕДАКТИРУЕМ:
+    if (editingId) {
+        url = `${API_URL}/${editingId}`;
+        method = 'PATCH'; // Метод обновления в Firebase
+    }
+
+    try {
+        const res = await fetch(url, {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
 
-        e.target.reset();
-        btn.innerText = "Опубликовать на сайт";
-        loadData();
+        if (res.ok) {
+            alert(editingId ? "Данные обновлены!" : "Объект добавлен!");
+            
+            // Сброс формы и состояния
+            editingId = null;
+            e.target.reset();
+            btn.innerText = "Опубликовать на сайт";
+            btn.style.background = "var(--gold)";
+            loadData();
+        }
+    } catch (err) {
+        alert("Ошибка сети!");
+        btn.innerText = oldText;
     }
+}
 
     // УДАЛЕНИЕ (DELETE)
     async function deleteObject(id) {
