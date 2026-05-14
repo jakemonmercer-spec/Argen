@@ -13,6 +13,7 @@
     <div class="logo" onclick="showSection('hero')">АЛТЫН <span>АЧКЫЧ</span></div>
     <nav id="main-nav">
         <button class="nav-btn" onclick="showSection('search')">Поиск</button>
+        <button class="nav-btn" onclick="showSection('contacts')">Контакты</button>
         <button class="nav-btn" id="admin-nav-link" onclick="showSection('login')">Админ</button>
     </nav>
 </header>
@@ -41,6 +42,40 @@
         </div>
     </section>
 
+    <!-- СЕКЦИЯ: КОНТАКТЫ -->
+<section id="contacts" class="section">
+    <div class="glass-panel" style="max-width: 100%;">
+        <h2 style="color:var(--gold); text-align:center; margin-bottom:30px;">Наши контакты</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start;">
+            
+            <!-- Инфо блок -->
+            <div class="contact-info">
+                <h3 style="color:var(--gold); margin-bottom:15px;">Филиал в г. Ош</h3>
+                <p style="margin-bottom:10px;">📍 <strong>Адрес:</strong> ул. Курманжан Датка, 123 (ориентир: ТЦ "Алай")</p>
+                <p style="margin-bottom:10px;">📞 <strong>WhatsApp:</strong> +996 (555) 00-00-00</p>
+                <p style="margin-bottom:10px;">📞 <strong>Тел:</strong> +996 (777) 11-11-11</p>
+                <p style="margin-bottom:20px;">✉️ <strong>Email:</strong> osh@altyn-achkych.kg</p>
+                
+                <button class="btn-gold" style="padding:10px 20px; font-size:0.8rem;" onclick="window.open('https://wa.me/996555000000')">Связаться с агентом в Оше</button>
+            </div>
+
+            <!-- Фото филиала -->
+            <div class="branch-photo">
+                <!-- Сюда вставь ссылку на реальное фото филиала. Сейчас тут заглушка премиум офиса -->
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" 
+                     alt="Ошский филиал" 
+                     style="width:100%; border-radius:15px; border:1px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+            </div>
+        </div>
+
+        <!-- Карта Google Maps -->
+        <div style="margin-top:40px; border-radius:15px; overflow:hidden; border:1px solid var(--accent); height:300px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12112.563032534575!2d72.7932389!3d40.5215582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bdad030040776d%3A0x67396a8494918e6!2z0J7RiCwg0JrRi9GA0LPRi9C30YHRgtCw0L0!5e0!3m2!1sru!2skg!4v1715712345678!5m2!1sru!2skg" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
     <!-- СЕКЦИЯ 3: ВХОД В АДМИНКУ -->
     <section id="login" class="section">
         <div class="glass-panel">
@@ -93,13 +128,19 @@
     let allData = [];
 
     // НАВИГАЦИЯ
-    function showSection(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        
-        // Автоматическая загрузка данных при переходе
-        if(id === 'hero' || id === 'search' || id === 'admin') loadData();
-    }
+   // Найди функцию showSection и обнови её:
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    // Убираем активный класс у всех кнопок
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(id).classList.add('active');
+    
+    // Подсветка активной кнопки в навигации
+    // (нам нужно найти кнопку, которая вызывает этот ID)
+    // Но для простоты:
+    if(id === 'hero' || id === 'search' || id === 'admin') loadData();
+}
 
     // АВТОРИЗАЦИЯ
     function checkAuth() {
